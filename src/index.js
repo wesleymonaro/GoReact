@@ -13,17 +13,21 @@ class App extends Component {
     this.setState({
       counter: this.state.counter + 1,
     });
-  }
+  };
 
   render() {
     return (
       <Fragment>
-        <h1 className="title">Hello</h1>
-        <h2 style={{ color: "#f00" }}>{this.state.counter}</h2>
+        <h1 className="title">
+Hello
+        </h1>
+        <h2 style={{ color: '#f00' }}>
+          {this.state.counter}
+        </h2>
         <Button onClick={this.handleClick} />
       </Fragment>
-    )
+    );
   }
 }
 
-render(<App initialCounter={3} />, document.getElementById('app'))
+render(<App initialCounter={3} />, document.getElementById('app'));
