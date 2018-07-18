@@ -1,5 +1,21 @@
-const func = (a, b) => {
-    return a + b;
+import React, { Component, Fragment } from 'react';
+import { render } from 'react-dom';
+
+class Button extends Component {
+    render() {
+        return <a href="">Salvar</a>
+    }
+}
+class App extends Component {
+
+    render() {
+        return (
+            <Fragment>
+                <h1>Hello</h1>
+                <Button />
+            </Fragment>
+        )
+    }
 }
 
-alert(func(3, 4));
+render(<App />, document.getElementById('app'))
