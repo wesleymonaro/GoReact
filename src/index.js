@@ -27,7 +27,14 @@ class App extends Component {
 
 
     handleClick = () => {
-        this.setState({ counter: this.state.counter + 1})
+        // COMO CALLBACK
+        // this.setState({ counter: this.state.counter + 1}, () => {
+        //     console.log(this.state.counter)
+        // })
+
+        //EM FILA
+        this.setState(state => ({ counter: state.counter + 1}));
+        this.setState(state => ({ counter: state.counter + 1}));
     }
 
     render() {
