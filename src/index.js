@@ -8,16 +8,16 @@ class Button extends Component {
     }
 }
 
-Button.defaultProps = {
-    children: 'Salvar'
-}
-
-Button.propTypes = {
-    onClick: PropTypes.func.isRequired,
-    children: PropTypes.string,
-}
-
 class App extends Component {
+
+    static defaultProps = {
+        children: 'Salvar'
+    }
+    
+    static propTypes = {
+        onClick: PropTypes.func.isRequired,
+        children: PropTypes.string,
+    }
 
     handleClick(){
         alert('Botão clicado')
