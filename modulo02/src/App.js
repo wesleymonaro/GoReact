@@ -3,12 +3,8 @@ import styled from "styled-components";
 
 import './styles/global';
 
-const App = () => (
-  <div className="App">
-    <h1>
-      Hello World
-    </h1>
-  </div>
-)
+import Main from './pages/Main';
+
+const App = () => <Main />
 
 export default App;
