@@ -23,6 +23,8 @@ export const Form = styled.form`
     color: #444;
     font-size: 18px;
     border-radius: 4px;
+
+    border: ${props => (props.withError ? '2px solid #F00' : 0)}
   }
 
   button{
