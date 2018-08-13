@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 import './styles/global';
 
+import Sidebar from './components/sidebar';
+
 const App = () => (
-  <div>
-    <h1>Hello World</h1>
-  </div>
+  <Sidebar />
 );
 
 export default App;
