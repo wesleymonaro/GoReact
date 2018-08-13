@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as PlaylistsActions } from '../../store/ducks/playlists';
+
 import {
   Container,
   Title,
@@ -7,37 +11,31 @@ import {
   Playlist
 } from './styles';
 
-const Browse = () => (
+const Browse = ({playlists}) => (
   <Container>
     <Title>Navegar</Title>
 
     <List>
-      <Playlist to="/playlists/1">
-        <img src="https://pbs.twimg.com/profile_images/1160471124/profile_logo_400x400.jpg" alt="Cover" />
-        <strong>Rock dos bons</strong>
-        <p>Relaze enquantovc programa ouvindo o melhor do rock</p>
-      </Playlist>
-
-      <Playlist to="/playlists/1">
-        <img src="https://pbs.twimg.com/profile_images/1160471124/profile_logo_400x400.jpg" alt="Cover" />
-        <strong>Rock dos bons</strong>
-        <p>Relaze enquantovc programa ouvindo o melhor do rock</p>
-      </Playlist>
-
-      <Playlist to="/playlists/1">
-        <img src="https://pbs.twimg.com/profile_images/1160471124/profile_logo_400x400.jpg" alt="Cover" />
-        <strong>Rock dos bons</strong>
-        <p>Relaze enquantovc programa ouvindo o melhor do rock</p>
-      </Playlist>
-
-      <Playlist to="/playlists/1">
-        <img src="https://pbs.twimg.com/profile_images/1160471124/profile_logo_400x400.jpg" alt="Cover" />
-        <strong>Rock dos bons</strong>
-        <p>Relaze enquantovc programa ouvindo o melhor do rock</p>
-      </Playlist>
+      {
+        playlists.data.map(playlist => (
+          <Playlist to={`/playlists/${playlist.id}`}>
+            <img src={playlist.thumbnail} alt={playlist.title}/>
+            <strong>{playlist.title}</strong>
+            <p>{playlist.description}</p>
+          </Playlist>
+        ))
+      }
 
     </List>
   </Container>
-);
+)
 
-export default Browse;
+
+const mapStateToProps = state => ({
+  playlists: state.playlists
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(PlaylistsActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Browse);
