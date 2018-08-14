@@ -11,9 +11,11 @@ import {
   Playlist
 } from './styles';
 
+import Loading from '../../components/loading';
+
 const Browse = ({playlists}) => (
   <Container>
-    <Title>Navegar</Title>
+    <Title>Navegar {playlists.loading && <Loading />}</Title>
 
     <List>
       {

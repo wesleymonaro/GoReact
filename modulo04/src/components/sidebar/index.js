@@ -11,6 +11,8 @@ import {
   Nav
 } from './styles';
 
+import Loading from '../../components/loading';
+
 import AddPlaylistIcon from '../../assets/images/add_playlist.svg';
 
 class Sidebar extends Component {
@@ -67,6 +69,7 @@ class Sidebar extends Component {
           <Nav>
             <li>
               <span>PLAYLISTS</span>
+              {this.props.playlists.loading && <Loading />}
             </li>
             {
               this.props.playlists.data.map(playlist => (
