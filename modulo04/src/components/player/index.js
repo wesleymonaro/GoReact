@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Slider from 'rc-slider';
 import Sound from 'react-sound';
 
@@ -34,11 +34,18 @@ const Player = ({ player }) => (
       )
     }
     <Current>
-        <img src="https://pbs.twimg.com/profile_images/1160471124/profile_logo_400x400.jpg" alt="Cover" />
-        <div>
-          <span>Metalingus</span>
-          <small>Alter bridge</small>
-        </div>
+      {
+        !!player.currentSong && (
+          <Fragment>
+            <img src={player.currentSong.thumbnail} alt={player.currentSong.title} />
+            <div>
+              <span>{player.currentSong.title}</span>
+              <small>{player.currentSong.author}</small>
+            </div>
+          </Fragment>
+        )
+      }
+
     </Current>
 
     <Progress>
