@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from 'rc-slider';
+import Sound from 'react-sound';
 
 import {
   Container,
@@ -11,6 +12,10 @@ import {
   ProgressSlider
 } from './styles';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as PlayerActions } from '../../store/ducks/player';
+
 import VolumeIcon from '../../assets/images/volume.svg';
 import ShuffleIcon from '../../assets/images/shuffle.svg';
 import BackwardIcon from '../../assets/images/backward.svg';
@@ -19,8 +24,15 @@ import PauseIcon from '../../assets/images/pause.svg';
 import ForwardIcon from '../../assets/images/forward.svg';
 import RepeatIcon from '../../assets/images/repeat.svg';
 
-const Player = () => (
+const Player = ({ player }) => (
   <Container>
+    {
+      !!player.currentSong && (
+        <Sound
+          url={player.currentSong.file} playStatus={player.status}
+        />
+      )
+    }
     <Current>
         <img src="https://pbs.twimg.com/profile_images/1160471124/profile_logo_400x400.jpg" alt="Cover" />
         <div>
@@ -73,4 +85,11 @@ const Player = () => (
   </Container>
 )
 
-export default Player
+const mapStateToProps = state => ({
+  player: state.player
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(PlayerActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Player);
