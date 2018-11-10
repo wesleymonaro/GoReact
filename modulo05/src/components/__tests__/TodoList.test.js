@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import sinon from "sinon";
-import TodoList from "./index";
+import TodoList from "../TodoList";
 
 import createMockStore from 'redux-mock-store';
 import { Creators as TodosActions } from '../../store/ducks/todos';
@@ -32,7 +32,7 @@ describe("TodoList component", () => {
     expect(store.getActions()).toContainEqual(TodosActions.addTodo('Novo todo'));
   });
 
-  fit("should be able to remove todo", () => {
+  it("should be able to remove todo", () => {
     const wrapper = shallow(<TodoList />, { context: { store } });
 
     wrapper
