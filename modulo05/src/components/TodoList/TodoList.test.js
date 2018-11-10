@@ -3,59 +3,46 @@ import { shallow } from "enzyme";
 import sinon from "sinon";
 import TodoList from "./index";
 
-const todos = [
-  { id: 0, text: "Fazer café" },
-  { id: 1, text: "Estudar React" },
-  { id: 2, text: "Entrar na comunidade" }
-];
+import createMockStore from 'redux-mock-store';
+import { Creators as TodosActions } from '../../store/ducks/todos';
+
+const INITIAL_STATE = {
+  todos: [
+    { id: 0, text: "Fazer café" },
+    { id: 1, text: "Estudar React" },
+    { id: 2, text: "Entrar na comunidade" }
+  ]
+};
+
+const mockStore = createMockStore();
+const store = mockStore(INITIAL_STATE)
 
 describe("TodoList component", () => {
   it("should render todos", () => {
-    const wrapper = shallow(<TodoList />);
+    const wrapper = shallow(<TodoList />, { context: { store } });
 
-    wrapper.setState({ todos });
-
-    expect(wrapper.find("li").length).toBe(3);
+    expect(wrapper.dive().find("li").length).toBe(3);
   });
 
   it("should be able to add new todo", () => {
-    const wrapper = shallow(<TodoList />);
+    const wrapper = shallow(<TodoList />, { context: { store } });
 
-    wrapper.setState({ todos });
+    wrapper.dive().find("button").simulate("click");
 
-    wrapper.find("button").simulate("click");
-
-    expect(wrapper.state("todos").length).toBe(4);
+    expect(store.getActions()).toContainEqual(TodosActions.addTodo('Novo todo'));
   });
 
-  it("should be able to remove todo", () => {
-    const wrapper = shallow(<TodoList />);
-
-    wrapper.setState({ todos });
+  fit("should be able to remove todo", () => {
+    const wrapper = shallow(<TodoList />, { context: { store } });
 
     wrapper
+      .dive()
       .find("li")
       .first()
       .simulate("click");
 
-    expect(wrapper.state("todos")).not.toContain(todos[0]);
+    expect(store.getActions()).toContainEqual(TodosActions.removeTodo(INITIAL_STATE.todos[0].id));
   });
 
-  it("should load todos from localStorage", () => {
-    sinon.stub(localStorage, "getItem").returns(JSON.stringify(todos));
 
-    const wrapper = shallow(<TodoList />);
-
-    expect(wrapper.state("todos")).toEqual(todos);
-  });
-
-  it("should save localStorage when added new todo", () => {
-    const spy = sinon.spy(localStorage, "setItem");
-
-    const wrapper = shallow(<TodoList />);
-
-    wrapper.instance().addTodo();
-
-    expect(spy.calledOnce).toBe(true);
-  });
 });
