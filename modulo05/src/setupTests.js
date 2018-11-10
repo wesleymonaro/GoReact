@@ -1,1 +1,1 @@
-import './tests/setup';
+import "./tests/setup";

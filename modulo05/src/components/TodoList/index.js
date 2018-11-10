@@ -1,36 +1,50 @@
-import React, { Component, Fragment } from 'react';
-
-// import { Container } from './styles';
+import React, { Component, Fragment } from "react";
 
 export default class TodoList extends Component {
-
   state = {
-    todos: [],
+    todos: []
+  };
+
+  componentDidMount() {
+    const todos = localStorage.getItem("todos");
+
+    if (todos) {
+      this.setState({ todos: JSON.parse(todos) });
+    }
+  }
+
+  saveTodos = () => {
+    localStorage.setItem("todos", JSON.stringify(this.state.todos));
   };
 
   addTodo = () => {
-    this.setState({todos: [
-      ...this.state.todos,
-      {
-        id: Math.random(),
-        text: 'Novo Todo',
-      }
-    ]})
-  }
+    this.setState({
+      todos: [...this.state.todos, { id: Math.random(), text: "Novo todo" }]
+    });
 
-  removeTodo = (id) => {
-    this.setState({ todos: this.state.todos.filter(todo => todo.id !== id)});
-  }
+    this.saveTodos();
+  };
+
+  removeTodo = id => {
+    this.setState({
+      todos: this.state.todos.filter(todo => todo.id !== id)
+    });
+
+    this.saveTodos();
+  };
 
   render() {
     return (
       <Fragment>
-
         <ul>
-          {this.state.todos.map(todo => <li onClick={() => this.removeTodo(todo.id)} key={todo.id}>{todo.text}</li>)}
+          {this.state.todos.map(todo => (
+            <li onClick={() => this.removeTodo(todo.id)} key={todo.id}>
+              {todo.text}
+            </li>
+          ))}
         </ul>
-        <button onClick={this.addTodo}>Adicionar todo</button>
+        <button onClick={this.addTodo}>Add new todo</button>
       </Fragment>
-    )
+    );
   }
 }
