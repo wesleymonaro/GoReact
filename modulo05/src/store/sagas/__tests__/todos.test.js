@@ -20,10 +20,6 @@ describe('Todos Saga', () => {
     sagaTester.run(rootSaga);
   });
 
-  // afterEach(function() {
-  //   jasmine.DEFAULT_TIMEOUT_INTERVAL = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-  // });
-
 
   it('should be able to fetch todos from API', async () => {
 

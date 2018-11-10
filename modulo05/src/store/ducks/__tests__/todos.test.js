@@ -1,6 +1,13 @@
 import reducer, { Creators as TodosActions } from '../todos';
 
 describe('Todos Reducer', () => {
+
+  it('shold return default state when called without action', () => {
+    const state = reducer([], {});
+
+    expect(state).toEqual([]);
+  })
+
   it('should be able to add new todo', () => {
     const state = reducer([], TodosActions.addTodo('Novo todo'));
 
